@@ -1,0 +1,136 @@
+/* 
+    Document   : fapps
+    Created on : 2013/05/09, 17:08:03
+    Author     : baba
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html {
+    font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro'
+}
+
+#tile_summary {
+    font-size: large;
+    font-weight: normal;
+}
+
+#tile_summary div.linked_tile {
+    background-color: #00bfff;
+    height: 8em;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#tile_summary div.linked_tile:hover {
+    background-color: #0095d9;
+}
+
+#tile_summary div.fixed_tile {
+    background-color: #ff69b4;
+    height: 8em;
+    border-radius: 3px;
+}
+
+#tile_summary a {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: black;
+    text-decoration: none;
+}
+
+#tile_summary p.price {
+    font-size: x-large;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#tile_summary p.sub_price {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: medium;
+}
+
+#detail_list {
+    font-size: medium;
+    table-layout: auto;
+    border: solid 1px #dcdcdc;
+}
+
+#detail_list th {
+    text-align: center;
+    border-left: solid 1px #dcdcdc;
+    border-bottom: solid 1px #dcdcdc;
+    background-color: #f0f8ff;
+}
+
+#detail_list th.memo {
+    width: 100px;
+}
+
+#detail_list td {
+    text-align: right;
+    border-left: solid 1px #dcdcdc;
+    width: 10em;
+}
+
+#detail_list td.date {
+    text-align: center;
+    width: 10em;
+}
+
+#detail_list td.action {
+    text-align: center;
+    width: 2em;
+}
+
+#detail_list td.action3 {
+    text-align: center;
+    width: 9em;
+}
+
+#detail_list td div.memo {
+    text-align: left;
+    width: 100%;
+    overflow: hidden;
+}
+
+#detail_list td.evaluation {
+    text-align: center;
+    width: 3em;
+}
+
+#detail_list td.negative {
+    color: red;
+}
+
+#detail_list td.category {
+    text-align: left;
+}
+
+#detail_list a {
+    color: black;
+}
+
+#detail_list a.icon {
+    margin-right: 3px;
+}
+
+#detail_list tr.summary {
+    background-color: #ffd700;
+}
+
+#summary_list {
+    font-size: large;
+}
+
+#summary_list th {
+    width: 5em;
+}
+
+#summary_list .value {
+    font-weight: bold;
+}
