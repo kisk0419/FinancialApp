@@ -13,7 +13,7 @@ require_once 'FinanceTermController.php';
  */
 class IncomingsController extends FinanceTermController {
   
-    public $uses = array('Incoming', 'IncomingPrimaryCategory', 'IncomingSecondaryCategory', 'Company');
+    public $uses = array('Incoming', 'IncomingPrimaryCategory', 'IncomingSecondaryCategory', 'Company', 'Setting');
     public $helpers = array('Utility');
     
     protected function addUniqueData($function_name, &$detail, $data) {
@@ -33,6 +33,10 @@ class IncomingsController extends FinanceTermController {
         
         $company = $this->Company->find('list');
         $this->set('company', $company);
+    }
+
+    protected function getTitle() {
+        return '収入';
     }
 }
 

@@ -63,6 +63,11 @@ class Asset extends FinanceTermModel {
         $detail['amount'] = $data['Asset']['amount'];
         $detail['memo'] = $data['Asset']['memo'];
         $detail['bank'] = $data['Bank']['name'];
+        if ($data['Asset']['is_draw'] == 1) {
+            $detail['operation'] = '出金';
+        } else {
+            $detail['operation'] = '入金';
+        }
     }
 
     protected function getSummaryValue($data) {

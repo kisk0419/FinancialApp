@@ -76,11 +76,19 @@
             )
         );
     
+    echo $this->Form->input('FundEntry.is_settled', 
+            array(
+                'type' => 'hidden',
+                'value' => 0
+            )
+        );
+    
     echo $this->Form->input('FundEntry.is_active', 
             array(
                 'label' => array(
                         'text' => '状態'
                 ),
+                'default' => 1
             )
         );
     

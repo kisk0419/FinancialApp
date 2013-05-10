@@ -14,7 +14,7 @@ class FundEntry extends FinanceModel {
     public $belongsTo = array(
         'FundPrimaryCategory' => array('fields' => array('id', 'name')), 
         'FundSecondaryCategory' => array('fields' => array('id', 'name')),
-        'FundEntryMode' => array('fields' => array('id', 'text')),
+        'FundEntryMode' => array('fields' => array('id', 'text', 'mode')),
         'Family', 
         'User' => array(
             'foreignKey' => 'user_account',
@@ -91,7 +91,6 @@ class FundEntry extends FinanceModel {
     }
     
     protected function getSettledSummary($family_id, $year = null, $month = null) {
-        //$this->contain(array('Family', 'FundPrimaryCategory', 'FundSecondaryCategory', 'User', 'FundEntryMode'));
         $entries =  $this->findEntries($family_id, true, true, $year, $month);
         foreach ($entries as &$entry) {
             $this->summaryEntry($entry);
@@ -101,8 +100,6 @@ class FundEntry extends FinanceModel {
     }
     
     protected function getCompletedSummary($family_id, $year = null, $month = null) {
-        //$this->contain(array('Family', 'FundPrimaryCategory', 'FundSecondaryCategory', 'User', 'FundEntryMode'));
-        //$this->contain();
         $entries =  $this->findEntries($family_id, true, false, $year, $month);
         foreach ($entries as &$entry) {
             $this->summaryEntry($entry);
@@ -112,7 +109,6 @@ class FundEntry extends FinanceModel {
     }
     
     protected function getProcessingSummary($family_id, $year = null, $month = null) {
-        //$this->contain(array('Family', 'FundPrimaryCategory', 'FundSecondaryCategory', 'User', 'FundEntryMode'));
         $entries =  $this->findEntries($family_id, false, false, $year, $month);
         foreach ($entries as &$entry) {
             $this->summaryEntry($entry);
@@ -148,6 +144,7 @@ class FundEntry extends FinanceModel {
     }
     
     protected function findEntries($family_id, $is_completed, $is_settled, $year, $month) {
+        
         $options = array(
             'conditions' => array(
                 'FundEntry.family_id' => $family_id,
@@ -188,11 +185,12 @@ class FundEntry extends FinanceModel {
         $detail['start_year'] = $data['FundEntry']['start_year'];
         $detail['start_month'] = $data['FundEntry']['start_month'];
         $detail['start_term'] = $data['FundEntry']['start_year'] . '/' . $data['FundEntry']['start_month'];
-        $detail['fund_entry_mode_id'] = $data['FundEntryMode']['id'];
-        $detail['fund_entry_mode'] = $data['FundEntryMode']['text'];
+        $detail['fund_entry_mode'] = $data['FundEntryMode']['mode'];
+        $detail['fund_entry_mode_text'] = $data['FundEntryMode']['text'];
         $detail['target_value'] = $data['FundEntry']['target_value'];
         $detail['memo'] = $data['FundEntry']['memo'];
         $detail['is_completed'] = $data['FundEntry']['is_completed'];
+        $detail['is_settled'] = $data['FundEntry']['is_settled'];
         $detail['is_active'] = $data['FundEntry']['is_active'];
     }
     

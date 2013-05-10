@@ -29,7 +29,9 @@ abstract class FinanceTermController extends FinanceController {
         $date = $this->request->query('date');
         
         if (!isset($year) || !isset($month) || $year < 1970 || $month < 1 || $month > 12) {
-            throw new NotFoundException();
+            $term = $this->getCurrentTerm($family_id);
+            $year = $term['year'];
+            $month = $term['month'];
         }
         
         $this->setContainCondition();
@@ -39,6 +41,9 @@ abstract class FinanceTermController extends FinanceController {
         $this->set('family_name', $family_name);
         $this->set('year', $year);
         $this->set('month', $month);
+        if (isset($date)) {
+            $this->set('date', (new DateTime($date))->format('(n月d日)'));
+        }
         $this->set('referer', $this->referer());
         
         $this->render('term');
@@ -67,6 +72,24 @@ abstract class FinanceTermController extends FinanceController {
             $this->set('year', $year);
             $this->set('month', $month);
         }
+    }
+    
+    protected function getCurrentTerm($family_id) {
+        $term = array();
+        $today = new DateTime();
+        
+        $setting = $this->Setting->getData($family_id);
+        
+        $day = $setting['Setting']['term_start_date'];
+        if ($setting['TermStartCondition']['value'] == 0 && $today->format('d') >= $day) {
+            $today->add(new DateInterval('P1M'));
+        } else if ($setting['TermStartCondition']['value'] == 1 && $today->format('d') < $day) {
+            $today->sub(new DateInterval('P1M'));
+        }
+        $term['year'] = $today->format('Y');
+        $term['month'] = $today->format('n');
+        
+        return $term;
     }
 }
 

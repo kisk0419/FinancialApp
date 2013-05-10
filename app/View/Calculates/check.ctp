@@ -1,5 +1,3 @@
-<h6><?php echo $year . '年' . $month . '月期' ?></h6>
-
 <script>
 $(function(){
     $('#tile_summary .linked_tile').click(
@@ -20,14 +18,13 @@ $(function(){
         <p><?php echo $this->Html->link('支出', '/Outgoings/term?year=' . $year . '&month=' . $month); ?></p>
         <?php echo $this->Utility->currencyTag($outgoing_data['total'], 'p', 'price', '￥'); ?>
         <?php echo $this->Utility->currencyTag($outgoing_data['fixed'], 'p', 'sub_price', '(固定費: ￥', ')'); ?>
-        <?php echo $this->Utility->currencyTag($outgoing_data['values'], 'p', 'sub_price', '(変動費: ￥', ')'); ?>
     </div>
     <div class="linked_tile col_2">
         <p><?php echo $this->Html->link('貯蓄', '/Assets/term?year=' . $year . '&month=' . $month); ?></p>
         <?php echo $this->Utility->currencyTag($asset_data, 'p', 'price', '￥'); ?>
     </div>
     <div class="linked_tile col_2">
-        <p><?php echo $this->Html->link('積立', '/Funds/term?year=' . $year . '&month=' . $month); ?></p>
+        <p><?php echo $this->Html->link('積み立て', '/Funds/term?year=' . $year . '&month=' . $month); ?></p>
         <?php echo $this->Utility->currencyTag($fund_data, 'p', 'price', '￥'); ?>
     </div>
     <div class="fixed_tile col_2">

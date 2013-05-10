@@ -91,6 +91,10 @@ class FixedOutgoingEntriesController extends FinanceController {
     protected function getSecondaryCategoryTableName() {
         return 'OutgoingSecondaryCategory';
     }
+
+    protected function getTitle() {
+        return '固定費';
+    }
 }
 
 ?>

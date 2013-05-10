@@ -13,7 +13,7 @@
 class FundHelper extends AppHelper {
     public function getEndTerm($mode, $year, $month, $target, $amount, $summary, $count) {
         $remain = $amount - $summary;
-        if ($mode == 1) {
+        if ($mode == 0) {
             $cnt = ceil($remain / $target);
         } else {
             $cnt = $target - $count;
@@ -31,7 +31,10 @@ class FundHelper extends AppHelper {
         return $end_year . '/' . $end_month;
     }
     
-    public function getProgressRate($is_completed, $summary, $amount) {
+    public function getProgressRate($is_completed, $is_settled, $summary, $amount) {
+        if ($is_settled) {
+            return '清算完了';
+        }
         if ($is_completed) {
             return '積立完了';
         }

@@ -16,7 +16,8 @@ class FundsController extends FinanceTermController {
         'Fund', 
         'FundPrimaryCategory', 
         'FundSecondaryCategory', 
-        'FundEntry');
+        'FundEntry',
+        'Setting');
     
     public function history() {
         if ($this->request->is('get')) {
@@ -54,6 +55,10 @@ class FundsController extends FinanceTermController {
     
     protected function setContainCondition() {
         $this->Fund->contain(array('FundEntry.FundPrimaryCategory', 'FundEntry.FundSecondaryCategory', 'Family', 'User'));
+    }
+
+    protected function getTitle() {
+        return '積み立て';
     }
 }
 

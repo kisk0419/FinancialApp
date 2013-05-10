@@ -51,10 +51,14 @@ class CalculatesController extends AppController {
     
     public function check() {
         $family_id = $this->getFamilyId();
+        $family_name = $this->getFamilyName();
+        
         $year = $this->request->query('year');
         $month = $this->request->query('month');
         if (!isset($year) || !isset($month)) {
-            throw new NotFoundException();
+            $term = $this->getCurrentTerm($family_id);
+            $year = $term['year'];
+            $month = $term['month'];
         }
         
         $incoming_summary = $this->Incoming->getSummary($family_id, $year, $month);
@@ -80,6 +84,9 @@ class CalculatesController extends AppController {
         $this->set('year', $year);
         $this->set('month', $month);
         
+        $this->set('family_name', $family_name);
+        $this->setTitleToView('家計簿');
+        
         $this->render('check');
     }
     
@@ -101,6 +108,28 @@ class CalculatesController extends AppController {
         $this->set('fund_detail', $fund_detail);
         
         $this->render('stock');
+    }
+    
+    protected function getCurrentTerm($family_id) {
+        $term = array();
+        $today = new DateTime();
+        
+        $setting = $this->Setting->getData($family_id);
+        
+        $day = $setting['Setting']['term_start_date'];
+        if ($setting['TermStartCondition']['value'] == 0 && $today->format('d') >= $day) {
+            $today->add(new DateInterval('P1M'));
+        } else if ($setting['TermStartCondition']['value'] == 1 && $today->format('d') < $day) {
+            $today->sub(new DateInterval('P1M'));
+        }
+        $term['year'] = $today->format('Y');
+        $term['month'] = $today->format('n');
+        
+        return $term;
+    }
+    
+    protected function setTitleToView($title) {
+        $this->set('header_title', $title);
     }
 }
 

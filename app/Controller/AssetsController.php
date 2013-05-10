@@ -12,8 +12,9 @@ require_once 'FinanceTermController.php';
  * @author keisuke
  */
 class AssetsController extends FinanceTermController {
-    public $uses = array('Asset', 'AssetPrimaryCategory', 'AssetSecondaryCategory', 'Bank');
-     
+    public $uses = array('Asset', 'AssetPrimaryCategory', 'AssetSecondaryCategory', 'Bank', 'Setting');
+    public $helpers = array('Utility');
+    
     public function draw() {
         if ($this->request->is('post')) {
             $data = $this->request->data['Asset'];
@@ -67,6 +68,10 @@ class AssetsController extends FinanceTermController {
         
         $bank = $this->Bank->find('list');
         $this->set('bank', $bank);
+    }
+
+    protected function getTitle() {
+        return '貯蓄';
     }
 }
 

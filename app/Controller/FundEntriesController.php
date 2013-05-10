@@ -21,7 +21,7 @@ class FundEntriesController extends FinanceController {
         'FundEntryMode'
      );
     
-    public $helpers = array('Fund');
+    public $helpers = array('Fund', 'Utility');
     
     public function regist() {
         $family_id = $this->Auth->user('family_id');
@@ -61,6 +61,23 @@ class FundEntriesController extends FinanceController {
         }
     }
     
+    public function check() {
+        if ($this->request->is('get')) {
+            if (!isset($this->request->pass[0])) {
+                throw new NotFoundException();
+            }
+            $id = $this->request->pass[0];
+            
+            $family_id = $this->getFamilyId();
+            $entry = $this->FundEntry->getData($family_id, $id);
+            $this->set('data', $entry);
+            $this->set('referer', $this->referer());
+            $this->render('check');
+         } else {
+            $this->redirect($this->referer());
+         }
+    }
+    
     public function complete() {
         if ($this->request->is('get')) {
             if (!isset($this->request->pass[0])) {
@@ -84,7 +101,6 @@ class FundEntriesController extends FinanceController {
             }
          }
          $this->redirect($this->referer());
-            
     }
     
     public function settle() {
@@ -127,6 +143,7 @@ class FundEntriesController extends FinanceController {
         $detail['amount'] = $data['FundEntry']['amount'];
         $detail['memo'] = $data['FundEntry']['memo'];
         $detail['is_completed'] = $data['FundEntry']['is_completed'];
+        $detail['is_settled'] = $data['FundEntry']['is_settled'];
         $detail['is_active'] = $data['FundEntry']['is_active'];
     }
     
@@ -151,6 +168,10 @@ class FundEntriesController extends FinanceController {
     
     protected function getSecondaryCategoryTableName() {
         return 'FundSecondaryCategory';
+    }
+
+    protected function getTitle() {
+        return '積み立て計画';
     }
 }
 

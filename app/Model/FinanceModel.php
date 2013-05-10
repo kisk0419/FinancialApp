@@ -22,7 +22,7 @@ abstract class FinanceModel extends AppModel {
         $options = array(
             'conditions' => array(
                 $this->getTableName() . '.family_id' => $family_id
-            )
+            ),
         );
         return $this->find('all', $options);
     }

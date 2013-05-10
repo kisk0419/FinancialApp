@@ -54,11 +54,76 @@ class UtilityHelper extends AppHelper {
     public function actionButton($link, $icon = '', $text = '', $confirm = null) {
         if (isset($confirm)) {
             $html = '<a href="' . $link . '" class="icon small button ' . 
-                    $icon . '" onclick="return confirm("' . $confirm . '");">' . $text . '<a/>';
+                    $icon . '" onclick="return confirm("' . $confirm . '");">' . $text . '</a>';
         } else {
             $html = '<a href="' . $link . '" class="icon small button ' . 
-                    $icon . '">' . $text . '<a/>';
+                    $icon . '">' . $text . '</a>';
         }
+        return $html;
+    }
+    
+    public function confirmButton($link, $icon = '', $text = '', $size = '', $color = '', $confirm = null) {
+        if (isset($confirm)) {
+            $html = '<a href="' . $link . '" class="button ' . $size . ' ' . $color . ' ' . 
+                    $icon . '" onclick="return confirm("' . $confirm . '");">' . $text . '</a>';
+        } else {
+            $html = '<a href="' . $link . '" class="button ' . $size . ' ' . $color . ' ' .  
+                    $icon . '">' . $text . '</a>';
+        }
+        return $html;
+    }
+    
+    public function termUrl($controller, $year, $month, $date = null) {
+        $url = '/' . $controller . '/term?year=' . h($year) . '&month=' . h($month);
+        if (isset($date)) {
+            $url .= ('&date=' . h($date));
+        }
+        return $url;
+    }
+    
+    public function tagetValue($mode, $value, $tag, $class) {
+        if ($mode == 0) {
+            return $this->currencyTag($value, $tag, $class, '￥', '/月');
+        } else if ($mode == 1) {
+            return $this->currencyTag($value, $tag, $class, '', '回');
+        } else {
+            return '--';
+        }
+    }
+    
+    public function fundEntryCheckBotton($entry_id, $is_completed, $is_settled) {
+        if ($is_completed) {
+            $html = $this->confirmButton(
+                    '/FundEntries/complete/' . $entry_id,
+                    '',
+                    '清算中に戻す',
+                    'medium',
+                    'red');
+        } else {
+            $html = $this->confirmButton(
+                    '/FundEntries/complete/' . $entry_id,
+                    '',
+                    '積立完了',
+                    'medium',
+                    'green');
+        }
+        
+        if ($is_settled) {
+            $html .= $this->confirmButton(
+                    '/FundEntries/settle/' . $entry_id,
+                    '',
+                    '未精算に戻す',
+                    'medium',
+                    'red');
+        } else {
+            $html .= $this->confirmButton(
+                    '/FundEntries/settle/' . $entry_id,
+                    '',
+                    '清算',
+                    'medium',
+                    'green');
+        }
+        
         return $html;
     }
 }

@@ -12,7 +12,6 @@ require_once 'FinanceModel.php';
  * @author baba
  */
 abstract class FinanceTermModel extends FinanceModel {
-    
     public function getIndexData($family_id, $year = null, $month = null, $date = null) {
         $datas = $this->findByTerm($family_id, $year, $month, $date);
         
@@ -29,7 +28,7 @@ abstract class FinanceTermModel extends FinanceModel {
                 $this->getTableName() . '.family_id' => $family_id,
             ),
             'order' => array(
-                $this->getTableName() . '.date'
+                $this->getTableName() . '.date desc'
             )
         );
         

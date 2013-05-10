@@ -12,6 +12,11 @@
  * @author keisuke
  */
 abstract class FinanceController extends AppController {
+    public function beforeRender() {
+        parent::beforeRender();
+        $this->set('header_title', $this->getTitle());
+    }
+    
     public function index() {
         $table_name = $this->getTableName();
         
@@ -175,6 +180,8 @@ abstract class FinanceController extends AppController {
     protected function setContainCondition() {}
     
     protected abstract function getTableName();
+    
+    protected abstract function getTitle();
 }
 
 ?>

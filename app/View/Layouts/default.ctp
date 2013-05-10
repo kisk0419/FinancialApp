@@ -50,17 +50,49 @@
 </head>
 <body>
 	<div id="container" class="grid">
-		<div id="header">
-		</div>
-		<div id="content">
+		<div id="header" class="col_12">
+                    <div class="col_9">
+                        <h6>
+                            <?php 
+                                if (isset($year)) {
+                                    echo $year . '年';
+                                }
+                                if (isset($month)) {
+                                    echo $month . '月';
+                                }
+                                if (isset($year) || isset($month)) {
+                                    echo '期';
+                                }
+                                if (isset($date)) {
+                                    echo '　' . $date;
+                                }
+                                if (isset($family_name)) {
+                                    echo '　' . $family_name . '家';
+                                }
+                                if (isset($header_title)) {
+                                    echo '　' . $header_title;
+                                }
+                            ?>
+                        </h6>
+                    </div>
+                    <div class="col_3">
+                        <ul class="button-bar">
+                            <li><?php echo $this->Html->link('家計簿', '/Calculates/check'); ?></li>
+                            <li><?php echo $this->Html->link('収入', '/Incomings/term'); ?></li>
+                            <li><?php echo $this->Html->link('支出', '/Outgoings/term'); ?></li>
+                            <li><?php echo $this->Html->link('貯蓄', '/Assets/term'); ?></li>
+                            <li><?php echo $this->Html->link('積立', '/Funds/term'); ?></li>
+                        </ul>
+                    </div>
+    		</div>
+            	<div id="content"  class="col_12">
 
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-                    <?php echo $this->Html->link('ホーム', '/'); ?>
-		</div>
+                </div>
 	</div>
 </body>
 </html>

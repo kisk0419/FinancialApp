@@ -31,6 +31,10 @@
                 <td><?php echo h($data['Bank']['name']) ?></td>
             </tr>
             <tr>
+                <td>メモ</td>
+                <td><?php echo h($data['Asset']['memo']) ?></td>
+            </tr>
+            <tr>
                 <td>入力者</td>
                 <td><?php echo h($data['User']['name']) ?></td>
             </tr>

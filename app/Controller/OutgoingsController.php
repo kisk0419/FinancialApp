@@ -16,7 +16,10 @@ class OutgoingsController extends FinanceTermController {
         'Outgoing', 
         'OutgoingPrimaryCategory', 
         'OutgoingSecondaryCategory', 
-        'Store');
+        'Store',
+        'Setting');
+    
+    public $helpers = array('Utility');
     
     protected function addUniqueData($function_name, &$detail, $data) {
         parent::addUniqueData($function_name, $detail, $data);
@@ -42,6 +45,10 @@ class OutgoingsController extends FinanceTermController {
         
         $store = $this->Store->find('list');
         $this->set('store', $store);
+    }
+
+    protected function getTitle() {
+        return '支出';
     }
 }
 

@@ -15,11 +15,18 @@ html {
     font-weight: normal;
 }
 
+#tile_summary div {
+    width: 185px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
 #tile_summary div.linked_tile {
     background-color: #00bfff;
-    height: 8em;
+    height: 6.5em;
     border-radius: 3px;
     cursor: pointer;
+    text-align: center;
 }
 
 #tile_summary div.linked_tile:hover {
@@ -28,8 +35,9 @@ html {
 
 #tile_summary div.fixed_tile {
     background-color: #ff69b4;
-    height: 8em;
-    border-radius: 3px;
+    height: 6.5em;
+    border-radius: 1px;
+    text-align: center;
 }
 
 #tile_summary a {
@@ -75,9 +83,10 @@ html {
     text-align: right;
     border-left: solid 1px #dcdcdc;
     width: 10em;
+    height: 1em;
 }
 
-#detail_list td.date {
+#detail_list td.date, #detail_list td.type {
     text-align: center;
     width: 10em;
 }
@@ -89,12 +98,23 @@ html {
 
 #detail_list td.action3 {
     text-align: center;
-    width: 9em;
+    width: 10em;
+}
+
+#detail_list td.action4 {
+    text-align: center;
+    width: 15em;
+}
+
+#detail_list td.action5 {
+    text-align: center;
+    width: 12em;
 }
 
 #detail_list td div.memo {
     text-align: left;
     width: 100%;
+    height: 1.5em;
     overflow: hidden;
 }
 
@@ -134,3 +154,4 @@ html {
 #summary_list .value {
     font-weight: bold;
 }
+

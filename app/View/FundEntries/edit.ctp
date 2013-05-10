@@ -61,7 +61,7 @@
     echo $this->Form->input('FundEntry.amount', 
             array(
                 'label' => array(
-                        'text' => '金額'
+                        'text' => '目標金額'
                 ),
             )
         );
@@ -76,9 +76,13 @@
     
     echo $this->Form->input('FundEntry.is_completed', 
             array(
-                'label' => array(
-                        'text' => '進捗'
-                ),
+                'type' => 'hidden',
+            )
+        );
+    
+    echo $this->Form->input('FundEntry.is_settled', 
+            array(
+                'type' => 'hidden',
             )
         );
     
