@@ -6,7 +6,9 @@
                 'label' => array(
                     'text' => '日付'
                 ),
-                'default' => date($date)
+                'default' => date($date),
+                'class' => 'datepicker',
+                'type' => 'text',
             )
         );
     
@@ -75,6 +77,24 @@
             )
         );
      
+    echo $this->Form->input('Outgoing.is_credit', 
+            array(
+                'label' => array(
+                        'text' => 'カード'
+                ),
+            )
+        );
+    
+    echo $this->Form->input('Outgoing.credit_date', 
+            array(
+                'label' => array(
+                        'text' => 'カード支払日'
+                ),
+                'type' => 'text',
+                'class' => 'datepicker'
+            )
+        );
+    
     echo $this->Form->input('Outgoing.referer', 
             array(
                 'type' => 'hidden',

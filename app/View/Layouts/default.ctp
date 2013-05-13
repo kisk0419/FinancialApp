@@ -49,8 +49,14 @@
 	?>
 </head>
 <body>
+    <script>
+        $(function() {
+            $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd'});
+        });
+    </script>
 	<div id="container" class="grid">
 		<div id="header" class="col_12">
+                    <?php echo $this->element('term_menu', array('year' => $year, 'month' => $month)); ?>
                     <div class="col_9">
                         <h6>
                             <?php 

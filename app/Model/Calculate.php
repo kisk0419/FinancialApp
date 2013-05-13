@@ -51,7 +51,8 @@ class Calculate {
                 $notset_count++;
             } else {
                 $today_remain = $daily_budget - $summary;
-                $data = array($date, $summary, $daily_budget, $today_remain, round((double)$today_remain / $daily_budget * 100));
+                $tmp_budget = ($daily_budget == 0) ? 0 : round((double)$today_remain / $daily_budget * 100);
+                $data = array($date, $summary, $daily_budget, $today_remain, $tmp_budget);
                 $daily_remain += $data[3];
                 $daily_budget_sum += $daily_budget;
             }
@@ -72,7 +73,7 @@ class Calculate {
         $account['summary'][] = $daily_outgoing;
         $account['summary'][] = $daily_budget_sum;
         $account['summary'][] = $daily_remain;
-        $account['summary'][] = round((double)$daily_remain / $daily_budget_sum * 100);
+        $account['summary'][] = ($daily_budget_sum == 0) ? 0 : round((double)$daily_remain / $daily_budget_sum * 100);
         
         return $account;
     }

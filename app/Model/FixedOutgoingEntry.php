@@ -25,6 +25,14 @@ class FixedOutgoingEntry extends FinanceModel {
         return $this->findByFamilyIdAndActive($family_id);
     }
     
+    protected function getPrimaryCategoryTable($data) {
+        return $data['OutgoingPrimaryCategory'];
+    }
+    
+    protected function getSecondaryCategoryTable($data) {
+        return $data['OutgoingSecondaryCategory'];
+    }
+    
     protected function findByFamilyIdAndActive($family_id) {
         $options = array(
             'conditions' => array(
@@ -52,14 +60,6 @@ class FixedOutgoingEntry extends FinanceModel {
 
     protected function getTableName() {
         return 'FixedOutgoingEntry';
-    }
-    
-    protected function getPrimaryCategoryTableName() {
-        return 'OutgoingPrimaryCategory';
-    }
-    
-    protected function getSecondaryCategoryTableName() {
-        return 'OutgoingSecondaryCategory';
     }
 }
 

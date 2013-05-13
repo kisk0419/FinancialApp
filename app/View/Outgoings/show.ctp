@@ -43,6 +43,18 @@
                 <td><?php echo h($data['Outgoing']['memo']) ?></td>
             </tr>
             <tr>
+                <td>カード</td>
+                <td>
+                    <?php
+                        if ($data['Outgoing']['is_credit']) {
+                            echo '○';
+                        } else {
+                            echo '--';
+                        }
+                    ?>
+                </td>
+            </tr>
+            <tr>
                 <td>入力者</td>
                 <td><?php echo h($data['User']['name']) ?></td>
             </tr>

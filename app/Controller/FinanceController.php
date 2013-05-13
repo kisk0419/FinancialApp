@@ -116,6 +116,7 @@ abstract class FinanceController extends AppController {
             
             $detail = array(
                 'id' => $this->request->data[$table_name]['id'],
+                'family_id' => $family_id,
                 $primary_category_key => $this->request->data[$table_name][$primary_category_key],
                 $secondary_category_key => $this->request->data[$table_name][$secondary_category_key],
                 'user_account' => $user['account']
@@ -173,6 +174,29 @@ abstract class FinanceController extends AppController {
     
     protected function getSecondaryCategoryTableName() {
         return $this->getTableName() . 'SecondaryCategory';
+    }
+    
+    protected function getCurrentTerm($family_id) {
+        $today = new DateTime();
+        
+        return $this->getTerm($family_id, $today);
+    }
+    
+    protected function getTerm($family_id, DateTime $date) {
+        $term = array();
+        
+        $setting = $this->Setting->getData($family_id);
+        
+        $day = $setting['Setting']['term_start_date'];
+        if ($setting['TermStartCondition']['value'] == 0 && $date->format('d') >= $day) {
+            $date->add(new DateInterval('P1M'));
+        } else if ($setting['TermStartCondition']['value'] == 1 && $date->format('d') < $day) {
+            $date->sub(new DateInterval('P1M'));
+        }
+        $term['year'] = $date->format('Y');
+        $term['month'] = $date->format('n');
+        
+        return $term;
     }
     
     protected function setUniqueData($function_name) {}

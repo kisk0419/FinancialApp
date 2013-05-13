@@ -11,7 +11,7 @@
 <table id="detail_list" cellspacing="0" cellpadding="0" class="striped tight">
     <thead>
         <?php echo $this->Html->tableHeaders(
-                array('日付', 'カテゴリ１', 'カテゴリ２', '金額', '種別', '店舗', 'メモ', 'アクション')); 
+                array('日付', 'カテゴリ１', 'カテゴリ２', '金額', '種別', 'カード', '店舗', 'メモ', 'アクション')); 
         ?>
     </thead>
     <tbody>
@@ -26,6 +26,15 @@
             <td class="category"><?php echo h($data['category_2']) ?></td>
             <?php echo $this->Utility->currencyTag($data['price'], 'td'); ?>
             <td class="type"><?php echo h($data['type']) ?></td>
+            <td class="type">
+                <?php
+                    if ($data['is_credit']) {
+                        echo '○';
+                    } else {
+                        echo '--';
+                    }
+                ?>
+            </td>
             <td><div class="memo"><?php echo h($data['store']) ?></div></td>
             <td><div class="memo"><?php echo h($data['memo']) ?></div></td>
             <td class="action3">

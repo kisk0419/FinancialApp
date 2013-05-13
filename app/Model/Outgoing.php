@@ -82,6 +82,7 @@ class Outgoing extends FinanceTermModel {
         $detail['quantity'] = $data['Outgoing']['quantity'];
         $detail['price'] = ($data['Outgoing']['unit_price'] * $data['Outgoing']['quantity']);
         $detail['memo'] = $data['Outgoing']['memo'];
+        $detail['is_credit'] = $data['Outgoing']['is_credit'];
         $detail['store'] = $data['Store']['name'];
         $detail['type'] = ($data['Outgoing']['is_fixed'] == 1) ? '固定費' : '--';
     }

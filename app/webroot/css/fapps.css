@@ -9,6 +9,16 @@
 html {
     font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro'
 }
+.bold {
+    font-weight: bold;
+}
+
+#term_menu {
+    font-size: small;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
 
 #tile_summary {
     font-size: large;
@@ -86,9 +96,14 @@ html {
     height: 1em;
 }
 
-#detail_list td.date, #detail_list td.type {
+#detail_list td.date {
     text-align: center;
     width: 10em;
+}
+
+#detail_list td.type {
+    text-align: center;
+    width: 5em;
 }
 
 #detail_list td.action {

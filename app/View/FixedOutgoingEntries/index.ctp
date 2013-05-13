@@ -1,39 +1,40 @@
-<h2><?php echo $family_name ?>家 固定費</h2>
-
+<div id="summary_list">
+    <div class="col_1">合計</div>
+    <?php echo $this->Utility->currencyTag($datas['summary'], 'div', 'value col_3', '￥'); ?>
+    <div class="col_7"></div>
+    <div class="col_1">
+        <?php echo $this->Utility->actionButton('/FixedOutgoingEntries/add', 'icon-plus'); ?>
+    </div>
+</div>
 <div>
-<table>
+<table id="detail_list" cellspacing="0" cellpadding="0" class="striped tight">
     <thead>
         <?php echo $this->Html->tableHeaders(
-                array('カテゴリ１', 'カテゴリ２', '単価', '数量', '金額', '店舗', 'メモ', '状態', '入力者', 'アクション')); ?>
+                array('カテゴリ１', 'カテゴリ２', '金額', '店舗', 'メモ', 'アクション')); ?>
     </thead>
     <tbody>
     <?php foreach ($datas['details'] as $data): ?>
         <tr>
-            <td><?php echo h($data['category_1']) ?></td>
-            <td><?php echo h($data['category_2']) ?></td>
-            <td><?php echo h($data['unit_price']) ?></td>
-            <td><?php echo h($data['quantity']) ?></td>
-            <td><?php echo h($data['price']) ?></td>
-            <td><?php echo h($data['store']) ?></td>
-            <td><?php echo h($data['memo']) ?></td>
-            <td><?php echo h($data['user']) ?></td>
-            <td><?php echo h($data['is_active'] ? '有効' : '無効') ?></td>
-            <td><?php echo $this->Html->link('参照', '/FixedOutgoingEntries/show/' . $data['id']); ?></td>
-            <td><?php echo $this->Html->link('編集', '/FixedOutgoingEntries/edit/' . $data['id']); ?></td>
-            <td><?php echo $this->Html->link('削除', '/FixedOutgoingEntries/delete/' . $data['id'], array(), '削除してもよろしいですか？'); ?></td>
+            <td class="category"><?php echo h($data['category_1']) ?></td>
+            <td class="category"><?php echo h($data['category_2']) ?></td>
+            <?php echo $this->Utility->currencyTag($data['price'], 'td'); ?>
+            <td><div class="memo"><?php echo h($data['store']) ?></div></td>
+            <td><div class="memo"><?php echo h($data['memo']) ?></div></td>
+            <td class="action3">
+                <?php 
+                    echo $this->Utility->actionButton(
+                            '/FixedOutgoingEntries/show/' . $data['id'], 'icon-search');
+                    
+                    echo $this->Utility->actionButton(
+                            '/FixedOutgoingEntries/edit/' . $data['id'], 'icon-pencil');
+                    
+                    echo $this->Utility->actionButton(
+                            '/FixedOutgoingEntries/delete/' . $data['id'], 'icon-remove', 
+                            '', '削除してもよろしいですか？');
+                ?>
+            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
-<table>
-    <tr>
-        <th>合計</th>
-    </tr>
-    <tr>
-        <td><?php echo h($datas['summary']); ?></td>
-    </tr>
-</table>
-</div>
-<div>
-    <?php echo $this->Html->link('新規追加', '/FixedOutgoingEntries/add'); ?>
 </div>

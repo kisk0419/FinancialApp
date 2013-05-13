@@ -73,24 +73,6 @@ abstract class FinanceTermController extends FinanceController {
             $this->set('month', $month);
         }
     }
-    
-    protected function getCurrentTerm($family_id) {
-        $term = array();
-        $today = new DateTime();
-        
-        $setting = $this->Setting->getData($family_id);
-        
-        $day = $setting['Setting']['term_start_date'];
-        if ($setting['TermStartCondition']['value'] == 0 && $today->format('d') >= $day) {
-            $today->add(new DateInterval('P1M'));
-        } else if ($setting['TermStartCondition']['value'] == 1 && $today->format('d') < $day) {
-            $today->sub(new DateInterval('P1M'));
-        }
-        $term['year'] = $today->format('Y');
-        $term['month'] = $today->format('n');
-        
-        return $term;
-    }
 }
 
 ?>

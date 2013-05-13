@@ -66,6 +66,24 @@
             )
         );
      
+     echo $this->Form->input('Outgoing.is_credit', 
+            array(
+                'label' => array(
+                        'text' => 'カード'
+                ),
+            )
+        );
+     
+     echo $this->Form->input('Outgoing.credit_date', 
+            array(
+                'label' => array(
+                        'text' => 'カード支払日'
+                ),
+                'default' => $this->request->data['Outgoing']['date'],
+                'type' => 'date'
+            )
+        );
+     
      echo $this->Form->input('Outgoing.referer', 
             array(
                 'type' => 'hidden',

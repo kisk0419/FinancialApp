@@ -12,29 +12,36 @@ require_once 'FinanceController.php';
  * @author baba
  */
 class FixedOutgoingEntriesController extends FinanceController {
-    public $uses = array('OutgoingPrimaryCategory', 'OutgoingSecondaryCategory', 'Store', 'FixedOutgoingEntry', 'Outgoing');
+    public $uses = array('OutgoingPrimaryCategory', 'OutgoingSecondaryCategory', 'Store', 'FixedOutgoingEntry', 'Outgoing', 'Setting');
     
     public function regist() {
         $family_id = $this->Auth->user('family_id');
         
         if ($this->request->is('post')) {
+            $back_year = $this->request->data['FixedOutgoingEntry']['year'];
+            $back_month = $this->request->data['FixedOutgoingEntry']['month'];
+            
+            foreach ($this->request->data['Outgoing'] as &$data) {
+                $term = $this->getTerm($family_id, new DateTime($data['date']['year'] . '-' . $data['date']['month'] . '-' . $data['date']['day']));
+                $data['year'] = $term['year'];
+                $data['month'] = $term['month'];
+            }
             $result = $this->Outgoing->saveMany($this->request->data['Outgoing']);
             
             if ($result == false) {
                 $this->Session->setFlash('固定費の登録に失敗しました。');
             }
-            $year = $this->request->data['FixedOutgoingEntry']['year'];
-            $month = $this->request->data['FixedOutgoingEntry']['month'];
-            $this->redirect('/Outgoings/term?year=' . $year . '&month=' . $month);
+            $this->redirect('/Outgoings/term?year=' . $back_year . '&month=' . $back_month);
         } else {
             $year = $this->request->query('year');
             $month = $this->request->query('month');
             if (!isset($year) || !isset($month) || $year < 1970 || $month < 1 || $month > 12) {
-                throw new NotFoundException();
+                $term = $this->getCurrentTerm($family_id);
+                $year = $term['year'];
+                $month = $term['month'];
             }
             
             $entries = $this->FixedOutgoingEntry->getRegistDatas($family_id);
-            //$this->request->data = $entries;
             $this->set('entries', $entries);
             
             $store = $this->Store->find('list');
@@ -67,6 +74,7 @@ class FixedOutgoingEntriesController extends FinanceController {
         $detail['store_id'] = $data['FixedOutgoingEntry']['store_id'];
         $detail['memo'] = $data['FixedOutgoingEntry']['memo'];
         $detail['is_active'] = $data['FixedOutgoingEntry']['is_active'];
+        $detail['is_credit'] = $data['FixedOutgoingEntry']['is_credit'];
     }
     
     protected function setUniqueData($function_name) {
